@@ -21,8 +21,6 @@ spring:
     servlet:
       content-type: text/html
     encoding: UTF-8
-    prefix: templates/
-    suffix: .html
 
 #Mybatis
 mybatis:

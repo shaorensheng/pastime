@@ -32,10 +32,10 @@ public class HelloController {
         return helloService.say(name);
     }
 
-    @GetMapping("/take")
+    @RequestMapping("/take")
     String take(Model model){
         String name = "Bei Jing";
         model.addAttribute("name",name);
-        return "index";
+        return "view/index";
     }
 }
