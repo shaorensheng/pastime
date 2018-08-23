@@ -1,4 +1,4 @@
-package cn.coders;
+package cn.coders.pastime.entity;
 
 import lombok.Getter;
 import lombok.Setter;
