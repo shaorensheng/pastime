@@ -8,6 +8,18 @@ spring:
       discovery:
         enabled: true #打开从配置中心读取文件
         serviceId: config-server  #配置中的的服务id
+  # Mysql连接
+  datasource:
+    url: jdbc:mysql://localhost:3306/xuexindb?useUnicode=true&amp;characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+#Mybatis
+mybatis:
+  typeAliasesPackage: spring.springboot.domain
+  mapperLocations: mapper/*.xml
+
 server:
   port: 8802
 eureka:
