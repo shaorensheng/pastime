@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: pastime-web
+server:
+  port: 8801
+eureka:
+  client:
+    serviceUrl:
+     defaultZone: http://127.0.0.1:8901/eureka/
+feign:
+  name: PASTIME-SERVICE #通过feign消费服务
+  hystrix:
+    enabled: true #开启熔断器
+
+
+

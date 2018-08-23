@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pastime.iml" filepath="$PROJECT_DIR$/pastime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pastime-entity/pastime-entity.iml" filepath="$PROJECT_DIR$/pastime-entity/pastime-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pastime-service/pastime-service.iml" filepath="$PROJECT_DIR$/pastime-service/pastime-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pastime-web/pastime-web.iml" filepath="$PROJECT_DIR$/pastime-web/pastime-web.iml" />
+    </modules>
+  </component>
+</project>

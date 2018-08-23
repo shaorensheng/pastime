@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: pastime-service
+  cloud:
+    config: #从config-server读取属性文件，获取的文件名称是 spring.application.name-cloud.config.profile的文件 pastime-service-dev
+      label: master #从这个分支获取文件
+      profile: dev
+      discovery:
+        enabled: true #打开从配置中心读取文件
+        serviceId: config-server  #配置中的的服务id
+server:
+  port: 8802
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8901/eureka/
+
+foo: version 2
