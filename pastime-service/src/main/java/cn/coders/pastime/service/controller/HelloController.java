@@ -1,6 +1,6 @@
-package cn.coders.controller;
+package cn.coders.pastime.service.controller;
 
-import cn.coders.service.HelloService;
+import cn.coders.pastime.service.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
