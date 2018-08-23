@@ -14,11 +14,21 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  #Thymeleaf  模板  默认将模板放在resources/templates中
+  thymeleaf:
+    cache: false  # 是否开启模板缓存，如在开发环境，一般设置为false
+    mode: LEGACYHTML5 # 设置模板的模式 使用非严格的html5模式
+    servlet:
+      content-type: text/html
+    encoding: UTF-8
+    prefix: templates/
+    suffix: .html
 
 #Mybatis
 mybatis:
   typeAliasesPackage: spring.springboot.domain
   mapperLocations: mapper/*.xml
+  type-aliases-package: cn.coders.pastime.entity
 
 server:
   port: 8802
