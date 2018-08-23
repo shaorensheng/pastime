@@ -1,5 +1,6 @@
 package cn.coders.service;
 
+import cn.coders.pastime.entity.Doubleball;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface HelloServiceAPI {
 
     @GetMapping("/hi/say")
-    String say(@RequestParam(value = "name") String name);
+    Doubleball say(@RequestParam(value = "name") String name);
 
 }

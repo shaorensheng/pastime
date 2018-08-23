@@ -1,5 +1,6 @@
 package cn.coders.service;
 
+import cn.coders.pastime.entity.Doubleball;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HelloSerivceHystric implements HelloServiceAPI {
     @Override
-    public String say(String name) {
-        return "sorry";
+    public Doubleball say(String name) {
+        return null;
     }
 }

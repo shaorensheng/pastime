@@ -1,4 +1,6 @@
-package cn.coders.service;
+package cn.coders.pastime.service.service;
+
+import cn.coders.pastime.entity.Doubleball;
 
 /**
  * Copyright (C) 2017/6/20 北京学信科技有限公司
@@ -9,5 +11,5 @@ package cn.coders.service;
  * 2018/8/22   srs                      v1.0.0        create
  */
 public interface HelloService {
-    String say(String name);
+    Doubleball say(String name);
 }

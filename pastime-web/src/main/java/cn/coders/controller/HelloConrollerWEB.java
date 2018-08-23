@@ -1,5 +1,6 @@
 package cn.coders.controller;
 
+import cn.coders.pastime.entity.Doubleball;
 import cn.coders.service.HelloServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/hi")
-public class HelloConroller {
+public class HelloConrollerWEB {
 
     @Autowired
     HelloServiceAPI helloServiceAPI;
 
     @GetMapping("/say")
-    String say(@RequestParam(value = "name") String name){
+    Doubleball say(@RequestParam(value = "name") String name){
         return helloServiceAPI.say(name);
     }
 }
