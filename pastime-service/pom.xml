@@ -136,6 +136,7 @@
 				</includes>
 				<filtering>true</filtering>
 			</resource>
+			<!-- 编译之后包含resources-->
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>

@@ -1,7 +1,7 @@
 package cn.coders.pastime.service.controller;
 
 import cn.coders.pastime.entity.Doubleball;
-import cn.coders.pastime.service.service.HelloService;
+//import cn.coders.pastime.service.service.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * service
@@ -25,17 +28,23 @@ public class HelloController {
 
     private static final Logger log = LoggerFactory.getLogger(HelloController.class);
 
-    @Autowired
-    HelloService helloService;
+//    @Autowired
+//    HelloService helloService;
     @GetMapping("/say")
     Doubleball say(@RequestParam(value = "name") String name){
-        return helloService.say(name);
+        return null;
     }
 
     @RequestMapping("/take")
     String take(Model model){
         String name = "Bei Jing";
-        model.addAttribute("name",name);
-        return "view/index";
+        List list = new ArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        List<List> listList = new ArrayList<>();
+        listList.add(list);
+        model.addAttribute("dataList",listList);
+        return "view/demo";
     }
 }
