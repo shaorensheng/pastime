@@ -3,14 +3,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>highChars测试</title>
+    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 </head>
 <body>
+<script type="text/javascript">
+    ${#arrays.isEmpty(container)};
+</script>
+<h1>测试</h1>
 <div id="container" style="min-width:400px;height:400px"></div>
-<script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-<!--/*@thymesVar id="dataList" type="java.util.List"*/-->
-<div th:each="lis,lstat:${dataList}">
-    <p>${lis}</p>
+<!--/*@thymesVar id="container" type="cn.coders.pastime.entity.highcharts.Container"*/-->
+<div th:object="${container}">
+    <p th:text="*{chart.getType()}"></p>
 </div>
+<!--<div th:each="lis,lstat:${dataList}">-->
+    <!--<p>${lis}</p>-->
+<!--</div>-->
 <!--<script>-->
 <!--var chart = Highcharts.chart('container', {-->
 	<!--chart: {-->
