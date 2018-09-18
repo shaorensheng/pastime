@@ -26,14 +26,4 @@ public class BallModel implements Serializable {
 
     private Date createDate;
 
-    @Override
-    public String toString() {
-        return "BallModel{" +
-                "No=" + No +
-                ", reds=" + reds +
-                ", blue=" + blue +
-                ", count=" + count +
-                ", createDate=" + createDate +
-                '}';
-    }
 }

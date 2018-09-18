@@ -1,8 +1,10 @@
 package cn.coders.pastime.util;
 
 import cn.coders.pastime.entity.BallModel;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author shaorensheng
@@ -25,6 +27,9 @@ public class GenerateOne {
                 count += num;
             }
         }
+        reds = reds.stream().sorted((i1, i2) ->
+                i1.compareTo(i2)
+        ).collect(Collectors.toList());
         ballModel.setReds(reds);
         ballModel.setBlue(random.nextInt(16) + 1);
         ballModel.setCount(count);
@@ -41,7 +46,7 @@ public class GenerateOne {
 //        }
         for (int i = 0; i < 100; i ++){
             BallModel one = createOne(10001);
-            System.out.println(one.toString());
+            System.out.println(JSONObject.toJSONString(one));
         }
         long end = System.currentTimeMillis();
         System.out.println((end-start) / 1000 + "s");

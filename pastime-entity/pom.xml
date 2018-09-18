@@ -9,6 +9,15 @@
         <version>1.0</version>
     </parent>
 
+    <dependencies>
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+    </dependencies>
+
     <groupId>cn.coders</groupId>
     <artifactId>pastime-entity</artifactId>
     <version>0.0.1</version>
