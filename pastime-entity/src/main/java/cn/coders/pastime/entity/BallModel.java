@@ -16,9 +16,21 @@ import java.util.List;
 public class BallModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private String id;
+
     private Integer No;
 
-    private List<Integer> reds;
+    private Integer red1;
+
+    private Integer red2;
+
+    private Integer red3;
+
+    private Integer red4;
+
+    private Integer red5;
+
+    private Integer red6;
 
     private Integer blue;
 

@@ -1,5 +1,6 @@
 package cn.coders.pastime.service.controller;
 
+import cn.coders.pastime.entity.BallModel;
 import cn.coders.pastime.entity.Doubleball;
 //import cn.coders.pastime.service.service.HelloService;
 import cn.coders.pastime.entity.highcharts.Container;
@@ -10,19 +11,27 @@ import cn.coders.pastime.entity.highcharts.chart.plotOptions.scatter.MarkerOne;
 import cn.coders.pastime.entity.highcharts.chart.plotOptions.scatter.States;
 import cn.coders.pastime.entity.highcharts.chart.plotOptions.scatter.Tooltip;
 import cn.coders.pastime.entity.highcharts.chart.xAxis.Title;
+import cn.coders.pastime.service.mapper.DoubleballMapper;
+import cn.coders.pastime.util.GenerateOne;
 import com.alibaba.fastjson.JSONObject;
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * service
@@ -35,6 +44,76 @@ import java.util.Random;
 public class HelloController {
 
     private static final Logger log = LoggerFactory.getLogger(HelloController.class);
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+    @Autowired
+    private DoubleballMapper doubleballMapper;
+
+
+    @GetMapping("save")
+    @ResponseBody
+    public void save(){
+        long start = System.currentTimeMillis();
+        //生成一次
+        BallModel one = GenerateOne.createOne(20180920);
+        //查询是否存在
+        //不存在插入
+        mongoTemplate.insert(one, "db");
+        //存在+1
+        long end = System.currentTimeMillis();
+        //100W数据保存耗时160s
+        log.info("=============>{}",((end - start) / 1000 + "s"));
+    }
+
+    @GetMapping("totalAndTimes")
+    public String totalAndTimes(Model model){
+        List<Map> totalRedAndTimes = doubleballMapper.getRedTotalAndTimes();
+        List<List> reds = totalRedAndTimes.stream().map(totalRedAndTime -> {
+            List list = new ArrayList();
+            list.add(totalRedAndTime.get("total"));
+            list.add(totalRedAndTime.get("times"));
+            return list;
+        }).collect(Collectors.toList());
+        //所有
+        List<Map> totalAndTimes = doubleballMapper.getTotalAndTimes();
+        List<List> total = totalAndTimes.stream().map(totalAndTime -> {
+            List list = new ArrayList();
+            list.add(totalAndTime.get("total"));
+            list.add(totalAndTime.get("times"));
+            return list;
+        }).collect(Collectors.toList());
+        //蓝球
+        List<Map> blues = doubleballMapper.getBlues();
+        List<List> blueList = blues.stream().map(blue -> {
+            List list = new ArrayList();
+            list.add(blue.get("blue"));
+            list.add(blue.get("times"));
+            return list;
+        }).collect(Collectors.toList());
+        model.addAttribute("reds",reds);
+        model.addAttribute("total",total);
+        model.addAttribute("blues",blueList);
+        return "view/demo";
+    }
+
+    @GetMapping("deal")
+    @ResponseBody
+    public void deal(){
+        long start = System.currentTimeMillis();
+        mongoTemplate.findAll(BallModel.class,"db").stream();
+        MatchOperation match1 = Aggregation.match(Criteria.where("No").is(20180920));
+        MatchOperation match2 = Aggregation.match(Criteria.where("count").gt(3));
+        GroupOperation group = Aggregation.group("red1", "red2", "red3", "red4", "red5", "red6", "blue").count().as("count");
+        Aggregation aggregation =
+                Aggregation.newAggregation(match1,group,match2).withOptions(AggregationOptions.builder().allowDiskUse(true).build());
+        AggregationResults<BallModel> db = mongoTemplate.aggregate(aggregation, "db", BallModel.class);
+        List<BallModel> mappedResults = db.getMappedResults();
+        log.info("--------------------->{}",JSONObject.toJSONString(mappedResults));
+        long end = System.currentTimeMillis();
+        //100W数据保存耗时80s
+        log.info("=============>{}",((end - start) / 1000 + "s"));
+    }
 
 //    @Autowired
 //    HelloService helloService;

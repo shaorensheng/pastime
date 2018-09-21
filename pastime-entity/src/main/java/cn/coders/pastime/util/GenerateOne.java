@@ -30,7 +30,12 @@ public class GenerateOne {
         reds = reds.stream().sorted((i1, i2) ->
                 i1.compareTo(i2)
         ).collect(Collectors.toList());
-        ballModel.setReds(reds);
+        ballModel.setRed1(reds.get(0));
+        ballModel.setRed2(reds.get(1));
+        ballModel.setRed3(reds.get(2));
+        ballModel.setRed4(reds.get(3));
+        ballModel.setRed5(reds.get(4));
+        ballModel.setRed6(reds.get(5));
         ballModel.setBlue(random.nextInt(16) + 1);
         ballModel.setCount(count);
         ballModel.setCreateDate(new Date());
