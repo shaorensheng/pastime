@@ -55,15 +55,24 @@ public class HelloController {
     @ResponseBody
     public void save(){
         long start = System.currentTimeMillis();
-        //生成一次
-        BallModel one = GenerateOne.createOne(20180920);
-        //查询是否存在
-        //不存在插入
-        mongoTemplate.insert(one, "db");
+        List<BallModel> ballModels = new ArrayList<>();
+        for (int i = 0 ; i < 1000000;i++) {
+            //生成一次
+            BallModel one = GenerateOne.createOne(20180925);
+            //查询是否存在
+            //不存在插入
+//            mongoTemplate.insert(one, "db");
+            ballModels.add(one);
+            System.out.println(i);
+        }
+        long end1 = System.currentTimeMillis();
+        log.info("=============>生成数据用时：{}",((end1 - start) / 1000 + "s"));
+        mongoTemplate.insert(ballModels,"db");
         //存在+1
         long end = System.currentTimeMillis();
         //100W数据保存耗时160s
-        log.info("=============>{}",((end - start) / 1000 + "s"));
+        log.info("=============>保存数据用时：{}",((end - end1) / 1000 + "s"));
+        log.info("=============>总用时：{}",((end - start) / 1000 + "s"));
     }
 
     @GetMapping("totalAndTimes")
@@ -100,13 +109,16 @@ public class HelloController {
     @GetMapping("deal")
     @ResponseBody
     public void deal(){
+        log.info("--------------------->开始处理数据。");
         long start = System.currentTimeMillis();
         mongoTemplate.findAll(BallModel.class,"db").stream();
-        MatchOperation match1 = Aggregation.match(Criteria.where("No").is(20180920));
-        MatchOperation match2 = Aggregation.match(Criteria.where("count").gt(3));
+        MatchOperation match1 = Aggregation.match(Criteria.where("No").is(20180925));
+        MatchOperation match2 = Aggregation.match(Criteria.where("count").gt(4));
         GroupOperation group = Aggregation.group("red1", "red2", "red3", "red4", "red5", "red6", "blue").count().as("count");
         Aggregation aggregation =
                 Aggregation.newAggregation(match1,group,match2).withOptions(AggregationOptions.builder().allowDiskUse(true).build());
+        long end1 = System.currentTimeMillis();
+        log.info("--------------------->处理数据用时：{}",((end1 - start) / 1000 + "s"));
         AggregationResults<BallModel> db = mongoTemplate.aggregate(aggregation, "db", BallModel.class);
         List<BallModel> mappedResults = db.getMappedResults();
         log.info("--------------------->{}",JSONObject.toJSONString(mappedResults));
