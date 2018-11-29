@@ -29,8 +29,8 @@ public class DemoController {
      * 递归二分查找
      * @param key
      * @param a
-     * @param start
-     * @param end
+     * @param start 开始下标
+     * @param end 结束下标
      * @return
      */
     public static int binarySearch(int key, int[]a, int start, int end){
