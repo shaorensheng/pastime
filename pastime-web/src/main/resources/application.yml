@@ -1,16 +1,36 @@
 spring:
   application:
     name: pastime-web
+# redis --->start
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: srs0903
+    timeout: 3000 #连接超时时间 单位 ms毫秒
+    pool:
+      max-idle: 8 #连接池中最大空闲连接，默认值也是8
+      min-idle: 0 #连接池中最小空闲连接，默认值也是0
+      max-active: 8 #如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted（耗尽）
+      max-wait: -1  #等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超时等待时间，则直接抛出
+# redis --->end
+
 server:
   port: 8801
 eureka:
   client:
     serviceUrl:
-     defaultZone: http://127.0.0.1:8901/eureka/
+      defaultZone: http://140.143.56.233:8901/eureka/
+  instance:
+      prefer-ip-address: true   #服务之间调用时，指定IP调用
+      instance-id: 172.21.0.8:8801
+      lease-expiration-duration-in-seconds: 10
+      lease-renewal-interval-in-seconds: 5
 feign:
   name: PASTIME-SERVICE #通过feign消费服务
   hystrix:
     enabled: true #开启熔断器
+
+
 
 
 
